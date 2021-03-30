@@ -83,6 +83,7 @@
     "human-signals": "^1.1.1",
     "imurmurhash": "^0.1.4",
     "inherits": "^2.0.4",
+    "inquirer": "^8.0.0",
     "is-accessor-descriptor": "^0.1.6",
     "is-arrayish": "^0.2.1",
     "is-buffer": "^1.1.6",
@@ -96,7 +97,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
