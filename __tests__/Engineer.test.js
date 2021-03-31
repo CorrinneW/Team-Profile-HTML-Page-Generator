@@ -30,7 +30,7 @@ describe('Engineer', () => {
 
             const result = newEngineer.getEmail();
 
-            expect(result).toEqual(email);
+            expect(result).toEqual(`<a href = "mailto:corrinneworden@gmail.com">corrinneworden@gmail.com</a>`);
         })
     });
     describe('getRole', () => {
@@ -51,7 +51,7 @@ describe('Engineer', () => {
 
             const result = newEngineer.getGithub();
 
-            expect(result).toEqual('CorrinneW');
+            expect(result).toEqual(`https://github.com/CorrinneW`);
         })
     })
 })

@@ -30,7 +30,7 @@ describe('Manager', () => {
 
             const result = newManager.getEmail();
 
-            expect(result).toEqual(email);
+            expect(result).toEqual(`<a href = "mailto:corrinneworden@gmail.com">corrinneworden@gmail.com</a>`);
         })
     });
     describe('getRole', () => {
