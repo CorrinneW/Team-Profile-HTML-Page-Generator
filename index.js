@@ -35,28 +35,6 @@ function buildHTML() {
     console.log(myTeam)
 };
 
-//allows user to add as many engineers and interns as they like
-function addEmployee() {
-    inquirer.prompt ({
-        type: 'checkbox',
-        name: 'addEmployee',
-        message: 'Would you like to add a new team member?',
-        choices: ['Add a new Engineer', 'Add a new Intern', "I'm done. Finish building my team."]
-    })
-    .then(response => {
-        console.log(response)
-        // if (response === ['Add a new Engineer']) {
-        //     newEngineer();
-        // } else if (response === ['Add a new Intern']) {
-        //     newIntern();
-        // } else if (response === ["I'm done. Finish building my team."]) {
-        //     buildHTML();
-        // } else {
-        //     addEmployee();
-        // }
-    })
-};
-
 //function to fill in engineer info
 function newEngineer() {
     const engineerQuestion = {
@@ -64,7 +42,9 @@ function newEngineer() {
         name: 'github',
         message: "Please enter the engineer's GitHub username"
     };
-    
+
+    //removes any question specific to other two roles.
+    questions.pop(questions[3])
     //adds EngineerQuestion to the questions array before it is prompted by inquirer
     questions.push(engineerQuestion);
 
@@ -76,7 +56,14 @@ function newEngineer() {
             const newEngineer = new Engineer(data.firstLastName, data.id, data.email, data.github);
             myTeam.push(newEngineer);
 
-            addEmployee();
+            buildTeam();
+        })
+        .catch(error => {
+            if (error.isTtyError) {
+                console.error("Prompt couldn't be rendered in the current environment.")
+            } else {
+                console.error("Something else went wrong.")
+            }
         });
 };
 
@@ -87,7 +74,9 @@ function newIntern() {
         name: 'school',
         message: "Please enter intern's school"
     };
-    
+
+    //removes any question specific to other two roles.
+    questions.pop(questions[3])
     //adds internQuestion to the questions array before it is prompted by inquirer
     questions.push(internQuestion);
 
@@ -99,7 +88,59 @@ function newIntern() {
             const newIntern = new Intern(data.firstLastName, data.id, data.email, data.school);
             myTeam.push(newIntern);
 
-            addEmployee();
+            buildTeam();
+        })
+        .catch(error => {
+            if (error.isTtyError) {
+                console.error("Prompt couldn't be rendered in the current environment.")
+            } else {
+                console.error("Something else went wrong.")
+            }
+        });
+};
+
+//choices for buildTeam function
+const roleArr = [
+    {
+        name: "Add an Engineer",
+        value: 'engineer'
+    },
+    {
+        name: "Add an Intern",
+        value: 'intern'
+    },
+    {
+        name: "I'm done. Finish building my team.",
+        value: 'done'
+    }
+]
+
+//allows user to add as many engineers and interns as they like, then finish and build html document with data
+function buildTeam() {
+    inquirer
+        .prompt({
+            type: 'list',
+            name: 'addEmployee',
+            message: 'Would you like to add a new team member?',
+            choices: roleArr
+        })
+        .then(data => {
+            if (data.addEmployee === 'engineer') {
+                newEngineer();
+            } else if (data.addEmployee === 'intern') {
+                newIntern();
+            } else if (data.addEmployee === 'done') {
+                buildHTML();
+            } else {
+                buildTeam();
+            }
+        })
+        .catch(error => {
+            if (error.isTtyError) {
+                console.error("Prompt couldn't be rendered in the current environment.")
+            } else {
+                console.error("Something else went wrong.")
+            }
         });
 };
 
@@ -110,7 +151,7 @@ function newManager() {
         name: 'officeNumber',
         message: "Please enter team manager's office number"
     };
-    
+
     //adds managerQuestion to the questions array before it is prompted by inquirer
     questions.push(managerQuestion);
 
@@ -120,7 +161,14 @@ function newManager() {
             const newManager = new Manager(data.firstLastName, data.id, data.email, data.officeNumber);
             myTeam.push(newManager);
 
-            addEmployee();
+            buildTeam();
+        })
+        .catch(error => {
+            if (error.isTtyError) {
+                console.error("Prompt couldn't be rendered in the current environment.")
+            } else {
+                console.error("Something else went wrong.")
+            }
         });
 };
 
