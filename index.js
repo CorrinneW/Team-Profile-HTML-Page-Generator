@@ -45,7 +45,7 @@ function buildHTML() {
         <meta charset='utf-8'>
         <meta name='viewport' content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css'>
-        <link rel='stylesheet' href='style.css'>
+        <link rel='stylesheet' href='src/style.css'>
     </head>
     
     <body>
@@ -58,7 +58,7 @@ function buildHTML() {
         </section>
     
         <div class="container" id="card-container">
-            <div class='tile-is-ancestor'>
+            <div class='tile is-ancestor'>
                 <div class='tile is-10'>
                     <div class='tile'>
                         ${teamCards}
@@ -70,7 +70,7 @@ function buildHTML() {
     
     </body>
     <script src="https://kit.fontawesome.com/4785eac3cb.js" crossorigin="anonymous"></script>
-    <script src='../index.js'></script>
+    <script src='/index.js'></script>
     
     </html>`;
 
@@ -124,30 +124,32 @@ function generateCards() {
         }
         //build template literal
         const memberCard = `<div class='tile is-parent is-4 is-vertical is-box'>
-        <article class='tile is-child'>
-            <p class='title'>
-                ${member.name}
-            </p>
-            <p class='subtitle'>
-                ${icon} ${role}
-            </p>
-        </article>
         <div class='tile is-child'>
-            <div class='box'>
-                <div class='content'>
-                    <p>
-                        ID: ${member.id}
-                    </p>
-                </div>
-                <div class='content'>
-                    <p>
-                        Email: ${member.getEmail()}
-                    </p>
-                </div>
-                <div class='content'>
-                    <p>
-                        ${special}
-                    </p>
+            <article class='has-background-info' id='card-header'>
+                <p class='title has-text-white'>
+                    ${member.name}
+                </p>
+                <p class='subtitle has-text-white'>
+                    ${icon} ${role}
+                </p>
+            </article>
+            <div id='card-body'>
+                <div class='box' id='card-info'>
+                    <div class='content'>
+                        <p>
+                            ID: ${member.id}
+                        </p>
+                    </div>
+                    <div class='content'>
+                        <p>
+                            Email: ${member.getEmail()}
+                        </p>
+                    </div>
+                    <div class='content'>
+                        <p>
+                            ${special}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

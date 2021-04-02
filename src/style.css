@@ -1,0 +1,35 @@
+*{
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.hero {
+    text-align: center;
+}
+
+#tile-layout {
+    display: flex;
+    justify-content: center;
+}
+
+#card-container {
+    margin: 5rem auto auto auto;
+}
+
+#card-header {
+ padding: 2rem;
+}
+
+#card-body {
+    background-color: lightgray;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    border-bottom: lightgray 1px solid;
+}
+
