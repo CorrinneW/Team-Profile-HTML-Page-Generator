@@ -9,11 +9,6 @@
     text-align: center;
 }
 
-#tile-layout {
-    display: flex;
-    justify-content: center;
-}
-
 #card-container {
     margin: 5rem auto auto auto;
 }

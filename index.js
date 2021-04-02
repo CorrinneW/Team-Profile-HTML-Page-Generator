@@ -10,7 +10,8 @@ const inquirer = require('inquirer');
 //global array holds data for all team members added
 const myTeam = [];
 //global array holds template literals for each team card created in generateCards function
-const teamCards = [];
+const teamCardsArr = [];
+
 
 //inquirer prompts give data to classes
 //questions array contains basic info questions that will be used for all Employee classes
@@ -34,6 +35,7 @@ const questions = [
 
 //builds HTML from data received
 function buildHTML() {
+    const teamCards = teamCardsArr.join("\n");
     const managerName = myTeam[0].name.replace(/\s+/g, '-').toLowerCase();
     const fileName = `${managerName}-team.html`;
 
@@ -59,7 +61,7 @@ function buildHTML() {
     
         <div class="container" id="card-container">
             <div class='tile is-ancestor'>
-                <div class='tile is-10'>
+                <div class='tile'>
                     <div class='tile'>
                         ${teamCards}
                     </div>
@@ -155,7 +157,7 @@ function generateCards() {
         </div>
     </div>`
 
-        teamCards.push(memberCard)
+        teamCardsArr.push(memberCard)
     }
     buildHTML();
 }
