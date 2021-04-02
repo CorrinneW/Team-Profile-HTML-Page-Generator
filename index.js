@@ -7,8 +7,10 @@ const fs = require('fs');
 
 const inquirer = require('inquirer');
 
-//global array holds all team members added
+//global array holds data for all team members added
 const myTeam = [];
+//global array holds template literals for each team card created in generateCards function
+const teamCards = [];
 
 //inquirer prompts give data to classes
 //questions array contains basic info questions that will be used for all Employee classes
@@ -32,8 +34,121 @@ const questions = [
 
 //builds HTML from data received
 function buildHTML() {
-    console.log(myTeam)
+    const managerName = myTeam[0].name.replace(/\s+/g, '-').toLowerCase();
+    const fileName = `${managerName}-team.html`;
+
+    const fileContent = `<!DOCTYPE html>
+    <html lang='en-us'>
+    
+    <head>
+        <title>My Team</title>
+        <meta charset='utf-8'>
+        <meta name='viewport' content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css'>
+        <link rel='stylesheet' href='style.css'>
+    </head>
+    
+    <body>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <p class="title">
+                    My Team
+                </p>
+            </div>
+        </section>
+    
+        <div class = "container" id = "card-container">
+            ${memberCard}
+        </div>
+    
+    
+    </body>
+    <script src="https://kit.fontawesome.com/4785eac3cb.js" crossorigin="anonymous"></script>
+    <script src='../index.js'></script>
+    </html>`;
+
+    fs.writeFile(fileName, fileContent, (err) => {
+        if (err) {
+            console.error(err)
+        } else {
+            console.log('Success!')
+        }
+    })
 };
+
+//icons for different roles
+const iconsArr = [
+    {
+        name: 'Manager',
+        value: `<i class="fas fa-mug-hot"></i>`
+    },
+    {
+        name: 'Engineer',
+        value: `<i class="fas fa-glasses"></i>`
+    },
+    {
+        name: 'Intern',
+        value: `<i class="fas fa-user-graduate"></i>`
+    },
+]
+
+//builds profile cards for each team member
+function generateCards() {
+    //for each team member in myTeam array, generate a template literal with their info
+    for (const member of myTeam) {
+        //get role of current member
+        const role = member.getRole();
+        //assign icons and special category for each role
+        let icon;
+        let special;
+
+        if (role === 'Manager') {
+            icon = iconsArr[0].value;
+            special = `Office Number: ${member.officeNumber}`;
+        } else if (role === 'Engineer') {
+            icon = iconsArr[1].value;
+            special = `GitHub: ${member.getGithub()}`;
+        } else if (role === Intern) {
+            icon = iconsArr[2].value;
+            special = `School: ${member.school}`;
+        }
+        //build template literal
+        const memberCard = `<div class = 'tile is-ancestor'>
+            <div class ='tile is-parent is-4 is-vertical is-box'>
+                <article class = 'tile is-child'>
+                    <p class = 'title'>
+                        ${member.name}
+                    </p>
+                    <p class = 'subtitle'>
+                        ${icon} ${role}
+                    </p>
+                </article>
+                <div class = 'tile is-child'>
+                    <div class = 'box'>
+                        <div class = 'content card-info'>
+                            <p>
+                                ID: ${member.id}
+                            </p>
+                        </div>
+                        <div class = 'content card-info'>
+                            <p>
+                                Email: ${member.getEmail()}
+                            </p>
+                        </div>
+                        <div class = 'content card-info'>
+                            <p>
+                                ${special}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+
+        teamCards.push(memberCard)
+    }
+    buildHTML();
+}
 
 //function to fill in engineer info
 function newEngineer() {
@@ -130,7 +245,7 @@ function buildTeam() {
             } else if (data.addEmployee === 'intern') {
                 newIntern();
             } else if (data.addEmployee === 'done') {
-                buildHTML();
+                generateCards();
             } else {
                 buildTeam();
             }
