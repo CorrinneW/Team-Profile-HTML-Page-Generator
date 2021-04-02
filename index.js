@@ -58,7 +58,7 @@ function buildHTML() {
         </section>
     
         <div class = "container" id = "card-container">
-            ${memberCard}
+            ${teamCards}
         </div>
     
     
