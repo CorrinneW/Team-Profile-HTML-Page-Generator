@@ -57,14 +57,21 @@ function buildHTML() {
             </div>
         </section>
     
-        <div class = "container" id = "card-container">
-            ${teamCards}
+        <div class="container" id="card-container">
+            <div class='tile-is-ancestor'>
+                <div class='tile is-10'>
+                    <div class='tile'>
+                        ${teamCards}
+                    </div>
+                </div>
+            </div>
         </div>
     
     
     </body>
     <script src="https://kit.fontawesome.com/4785eac3cb.js" crossorigin="anonymous"></script>
     <script src='../index.js'></script>
+    
     </html>`;
 
     fs.writeFile(fileName, fileContent, (err) => {
@@ -108,42 +115,43 @@ function generateCards() {
         } else if (role === 'Engineer') {
             icon = iconsArr[1].value;
             special = `GitHub: ${member.getGithub()}`;
-        } else if (role === Intern) {
+        } else if (role === 'Intern') {
             icon = iconsArr[2].value;
             special = `School: ${member.school}`;
+        } else {
+            icon = '';
+            special = '';
         }
         //build template literal
-        const memberCard = `<div class = 'tile is-ancestor'>
-            <div class ='tile is-parent is-4 is-vertical is-box'>
-                <article class = 'tile is-child'>
-                    <p class = 'title'>
-                        ${member.name}
+        const memberCard = `<div class='tile is-parent is-4 is-vertical is-box'>
+        <article class='tile is-child'>
+            <p class='title'>
+                ${member.name}
+            </p>
+            <p class='subtitle'>
+                ${icon} ${role}
+            </p>
+        </article>
+        <div class='tile is-child'>
+            <div class='box'>
+                <div class='content'>
+                    <p>
+                        ID: ${member.id}
                     </p>
-                    <p class = 'subtitle'>
-                        ${icon} ${role}
+                </div>
+                <div class='content'>
+                    <p>
+                        Email: ${member.getEmail()}
                     </p>
-                </article>
-                <div class = 'tile is-child'>
-                    <div class = 'box'>
-                        <div class = 'content card-info'>
-                            <p>
-                                ID: ${member.id}
-                            </p>
-                        </div>
-                        <div class = 'content card-info'>
-                            <p>
-                                Email: ${member.getEmail()}
-                            </p>
-                        </div>
-                        <div class = 'content card-info'>
-                            <p>
-                                ${special}
-                            </p>
-                        </div>
-                    </div>
+                </div>
+                <div class='content'>
+                    <p>
+                        ${special}
+                    </p>
                 </div>
             </div>
-        </div>`
+        </div>
+    </div>`
 
         teamCards.push(memberCard)
     }

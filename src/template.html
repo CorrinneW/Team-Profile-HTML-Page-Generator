@@ -19,44 +19,49 @@
         </div>
     </section>
 
-    <div class = "container" id = "card-container">
-        ${memberCard}
+    <div class="container" id="card-container">
+        <div class='tile-is-ancestor'>
+            <div class='tile is-10'>
+                <div class='tile'>
+                    ${teamCards}
+                </div>
+            </div>
+        </div>
     </div>
 
 
 </body>
 <script src="https://kit.fontawesome.com/4785eac3cb.js" crossorigin="anonymous"></script>
 <script src='../index.js'></script>
+
 </html>
 
 <!-- this is for generateCards function -->
-<div class = 'tile is-ancestor'>
-    <div class ='tile is-parent is-4 is-vertical is-box'>
-        <article class = 'tile is-child'>
-            <p class = 'title'>
-                ${member.name}
-            </p>
-            <p class = 'subtitle'>
-                ${icon} ${role}
-            </p>
-        </article>
-        <div class = 'tile is-child'>
-            <div class = 'box'>
-                <div class = 'content'>
-                    <p>
-                        ID: ${member.id}
-                    </p>
-                </div>
-                <div class = 'content'>
-                    <p>
-                        Email: ${member.getEmail()}
-                    </p>
-                </div>
-                <div class = 'content'>
-                    <p>
-                        ${special}
-                    </p>
-                </div>
+<div class='tile is-parent is-4 is-vertical is-box'>
+    <article class='tile is-child'>
+        <p class='title'>
+            ${member.name}
+        </p>
+        <p class='subtitle'>
+            ${icon} ${role}
+        </p>
+    </article>
+    <div class='tile is-child'>
+        <div class='box'>
+            <div class='content'>
+                <p>
+                    ID: ${member.id}
+                </p>
+            </div>
+            <div class='content'>
+                <p>
+                    Email: ${member.getEmail()}
+                </p>
+            </div>
+            <div class='content'>
+                <p>
+                    ${special}
+                </p>
             </div>
         </div>
     </div>
