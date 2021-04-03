@@ -1,5 +1,5 @@
 # Work Team Profile Generator
-Node.js command line application.
+A Node.js command line application.
 
 ## The Goal
 A command line application which takes information about the manager, engineers and interns on a software development team and returns an HTML page with a brief employee profile for each.
