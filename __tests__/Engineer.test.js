@@ -51,7 +51,7 @@ describe('Engineer', () => {
 
             const result = newEngineer.getGithub();
 
-            expect(result).toEqual(`https://github.com/CorrinneW`);
+            expect(result).toEqual(`<a href = 'https://github.com/CorrinneW' target='_blank' rel='noreferrer noopener'>CorrinneW</a>`);
         })
     })
 })
